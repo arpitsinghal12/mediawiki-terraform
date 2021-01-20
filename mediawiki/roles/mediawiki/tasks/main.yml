@@ -1,0 +1,6 @@
+---
+- include: install_apache2.yml
+- include: install_db.yml
+- include: install_php.yml
+- include: install_mediawiki.yml
+- include: configure_apache2.yml

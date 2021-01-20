@@ -1,0 +1,10 @@
+--- 
+- name: create the mysql database.
+  community.mysql.mysql_db:
+    name: mediawiki
+    state: present
+    login_user: "mediawikiuser"
+    login_User: "{{ root_password }}"
+    
+
+

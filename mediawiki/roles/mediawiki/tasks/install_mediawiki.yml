@@ -1,0 +1,20 @@
+---
+- name: download the mediawiki installer package and paste it to the /tmp directory.
+  unarchive:
+    src: https://releases.wikimedia.org/mediawiki/1.29/mediawiki-1.29.0.tar.gz
+    dest: /tmp
+    mode: 0644
+    remote_src: yes
+
+- name: create a mediawiki directory and copy the unarchived file.
+  file:
+    path: /var/www/html/mediawiki
+    state: directory
+
+- name: copy the archived file.
+  copy:
+    dest: /var/www/html/mediawiki/
+    src: mediawiki-1.29.0/*
+    mode: 0755
+    owner: www-data
+

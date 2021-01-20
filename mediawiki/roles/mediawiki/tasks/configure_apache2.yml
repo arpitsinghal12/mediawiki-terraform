@@ -1,0 +1,20 @@
+---
+- name: copy the apache2 config file to the directory.
+  copy:
+    src: mediawiki.conf
+    dest: /etc/apache2/sites-available/mediawiki.conf
+    mode: 0644
+    owner: root
+
+- name: enable the web server 
+  shell: |
+         a2ensite mediawiki.conf
+         a2enmod rewrite
+
+- name: restart the apache service
+  service:
+    name: apache2
+    state: restarted
+
+
+

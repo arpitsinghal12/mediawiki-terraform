@@ -1,0 +1,16 @@
+---
+- name: install apache2 for the elasticsearch purpose.
+  apt:
+    name: "{{ apache2_package}}"
+    state: latest
+    update_cache: yes
+
+- name: disabling the directory listing.
+  command: "sed -i 's/Options Indexes FollowSymLinks/Options FollowSymLinks/' /etc/apache2/apache2.conf"
+
+- name: Restart and enable the apache2 service
+  service:
+    name: apache2
+    state: restarted
+    enabled: yes
+

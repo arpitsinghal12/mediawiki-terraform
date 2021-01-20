@@ -1,0 +1,95 @@
+---
+- name: install apache2 for the elasticsearch purpose.
+  apt:
+    name: "{{ apache2_package}}" 
+    state: latest
+    update_cache: yes
+
+- name: disabling the directory listing.
+  command: "sed -i "s/Options Indexes FollowSymLinks/Options FollowSymLinks/" /etc/apache2/apache2.conf"
+
+- name: Restart and enable the apache2 service
+  service:
+    name: apache2
+    state: restarted
+    enabled: yes
+
+- name: install the mariadb service.
+  apt:
+    pkg:
+    - mariadb-client
+    - mariadb-server
+    update_cache: yes
+
+- name: Adds Python MySQL support on Debian/Ubuntu
+  apt: pkg="python-mysqldb" state=present
+  when: ansible_os_family == 'Debian'
+
+- name: Set the root password 
+  mysql_user: login_user=root login_password="{{ root_password }}" user=root password="{{ root_password }}"
+
+- name: Secure the root user for IPV6 localhost (::1)
+  mysql_user: login_user=root login_password="{{ root_password }}" user=root password="{{ root_password }}" host="::1"
+
+- name: Secure the root user for IPV4 localhost (127.0.0.1)
+  mysql_user: login_user=root login_password="{{ root_password }}" user=root password="{{ root_password }}" host="127.0.0.1"
+
+- name: Secure the root user for localhost domain
+  mysql_user: login_user=root login_password="{{ root_password }}" user=root password="{{ root_password }}" host="localhost"
+
+- name: Secure the root user for server_hostname domain
+  mysql_user: login_user=root login_password="{{ root_password }}" user=root password="{{ root_password }}" host="{{ ansible_fqdn }}"
+
+- name: Deletes anonymous server user
+  mysql_user: login_user=root login_password="{{ root_password }}" user="" host_all=yes state=absent
+
+- name: Removes the test database
+  mysql_db: login_user=root login_password="{{ root_password }}" db=test state=absent
+
+
+- name: Restart and enable the apache2 service
+  service:
+    name: mariadb
+    state: restarted
+    enabled: yes
+
+- name: Install the PHP client for the mediawiki.
+  apt:
+    pkg:
+    - software-common-properties
+    update_cache: yes
+
+- name: Add source repository into sources list
+  ansible.builtin.apt_repository:
+    repo: ppa:ondrej/php
+    state: present
+    update_cache: yes
+
+- name: Install the php related module.
+  apt:
+    pkg:
+    - php7.1 
+    - libapache2-mod-php7.1 
+    - php7.1-common 
+    - php7.1-mbstring 
+    - php7.1-xmlrpc 
+    - php7.1-soap 
+    - php7.1-gd 
+    - php7.1-xml 
+    - php7.1-intl 
+    - php7.1-mysql 
+    - php7.1-cli 
+    - php7.1-mcrypt 
+    - php7.1-zip 
+    - php7.1-curl
+
+- name: copy the php.ini file into the server.
+  copy:
+    src: php.ini
+    dest: /etc/php/7.1/apache2/php.ini
+    owner: root
+    group: root
+    mode: 0644
+
+
+

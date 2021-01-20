@@ -1,0 +1,39 @@
+---
+- name: Install the PHP client for the mediawiki.
+  apt:
+    pkg:
+    - software-common-properties
+    update_cache: yes
+
+- name: Add source repository into sources list
+  ansible.builtin.apt_repository:
+    repo: ppa:ondrej/php
+    state: present
+    update_cache: yes
+
+- name: Install the php related module.
+  apt:
+    pkg:
+    - php7.1
+    - libapache2-mod-php7.1
+    - php7.1-common
+    - php7.1-mbstring
+    - php7.1-xmlrpc
+    - php7.1-soap
+    - php7.1-gd
+    - php7.1-xml
+    - php7.1-intl
+    - php7.1-mysql
+    - php7.1-cli
+    - php7.1-mcrypt
+    - php7.1-zip
+    - php7.1-curl
+
+- name: copy the php.ini file into the server.
+  copy:
+    src: php.ini
+    dest: /etc/php/7.1/apache2/php.ini
+    owner: root
+    group: root
+    mode: 0644
+

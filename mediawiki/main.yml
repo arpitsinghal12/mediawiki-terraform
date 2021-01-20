@@ -1,0 +1,15 @@
+---
+- hosts: localhost
+  become: yes
+  tasks:
+
+  - name: Pause for 1 minutes to build app cache
+    pause:
+      minutes: 1
+
+- hosts: mediawiki
+  gather_facts: yes
+  become: yes
+  roles: 
+    - mediawiki
+
