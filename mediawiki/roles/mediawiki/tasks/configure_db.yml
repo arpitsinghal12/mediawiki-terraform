@@ -1,4 +1,16 @@
 --- 
+- name: install the pymysql dependencies.
+  pip:
+     name: pymysql
+     state: present
+
+- name: create the mysql user.
+  mysql_user:
+    name: "mediawikiuser"
+    password: "mediawiki_user"
+    state: present
+    priv: '*.*:ALL'
+
 - name: create the mysql database.
   community.mysql.mysql_db:
     name: mediawiki

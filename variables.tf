@@ -1,19 +1,14 @@
-variable "name_master" {
+variable "name" {
   description = "Name to be used on all resources as prefix"
   type        = string
 }
 
-variable "instance_count_master" {
+variable "instance_count" {
   description = "Number of instances to launch"
   type        = number
   default     = 1
 }
 
-variable "instance_count_slave" {
-  description = "Number of instances to launch"
-  type        = number
-  default     = 1
-}
 
 variable "size" {
   description = "Number of instances to launch"
@@ -21,16 +16,11 @@ variable "size" {
   default     = 1
 }
 
-variable "ami_master" {
+variable "ami" {
   description = "ID of AMI to use for the instance"
   type        = string
 }
 
-
-variable "ami_slave" {
-  description = "ID of AMI to use for the instance"
-  type        = string
-}
 
 variable "instance_type" {
   description = "The type of instance to start"

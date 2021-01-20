@@ -1,2 +1,9 @@
-instance_count_master= "1"
-ami
+name = "mediawiki"
+instance_count = 1 
+ami = "ami-00054c045e8ce8747"
+instance_type = "t2.micro"
+key_name = "Private-key"
+vpc_id = "vpc-117b8c7a"
+subnet_id = "subnet-24266b68"
+region = "ap-south-1"
+size = 60

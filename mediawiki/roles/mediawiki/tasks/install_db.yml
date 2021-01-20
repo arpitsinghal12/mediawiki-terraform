@@ -4,11 +4,17 @@
     pkg:
     - mariadb-client
     - mariadb-server
+    - python3
     update_cache: yes
 
 - name: Adds Python MySQL support on Debian/Ubuntu
   apt: pkg="python-mysqldb" state=present
   when: ansible_os_family == 'Debian'
+
+  #- name: install the pymysql dependencies.
+  #  pip:
+  #    name: pymysql
+  #  state: present
 
 - name: Set the root password
   mysql_user: 
@@ -41,7 +47,7 @@
   mysql_db: login_user=root login_password="{{ root_password }}" db=test state=absent
 
 
-- name: Restart and enable the apache2 service
+- name: Restart and enable the mariadb service
   service:
     name: mariadb
     state: restarted

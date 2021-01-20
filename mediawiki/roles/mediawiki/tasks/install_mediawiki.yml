@@ -4,7 +4,7 @@
     src: https://releases.wikimedia.org/mediawiki/1.29/mediawiki-1.29.0.tar.gz
     dest: /tmp
     mode: 0644
-    remote_src: yes
+    remote_src: True
 
 - name: create a mediawiki directory and copy the unarchived file.
   file:
@@ -12,9 +12,7 @@
     state: directory
 
 - name: copy the archived file.
-  copy:
-    dest: /var/www/html/mediawiki/
-    src: mediawiki-1.29.0/*
-    mode: 0755
-    owner: www-data
-
+  shell: |
+          mv mediawiki-1.29.0/* /var/www/html/mediawiki
+          chown -R www-data:www-data /var/www/html/mediawiki/
+          chmod -R 755 /var/www/html/mediawiki/

@@ -47,9 +47,9 @@ module "mediawiki_sg" {
 module "ec2_cluster" {
   source                 = "terraform-aws-modules/ec2-instance/aws"
   version                = "~> 2.0"
-  name                   = var.name_master 
-  instance_count         = var.instance_count_master 
-  ami                    = var.ami_master 
+  name                   = var.name
+  instance_count         = var.instance_count
+  ami                    = var.ami 
   instance_type          = var.instance_type 
   key_name               = var.key_name 
   monitoring             = true

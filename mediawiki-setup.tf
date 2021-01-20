@@ -8,7 +8,7 @@ resource "null_resource" "mediawiki-setup" {
 	template = data.template_file.inventory.rendered
 	cluster_instance_ids = join( ",",[
 		module.ec2_cluster.id[0]
-	)
+]	)
 				
 	}
 	

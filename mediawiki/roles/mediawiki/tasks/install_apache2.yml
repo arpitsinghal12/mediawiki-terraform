@@ -1,7 +1,7 @@
 ---
 - name: install apache2 for the elasticsearch purpose.
   apt:
-    name: "{{ apache2_package}}"
+    name: apache2 #"{{ apache2_package}}"
     state: latest
     update_cache: yes
 

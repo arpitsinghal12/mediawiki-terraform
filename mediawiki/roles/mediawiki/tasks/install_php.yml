@@ -2,7 +2,7 @@
 - name: Install the PHP client for the mediawiki.
   apt:
     pkg:
-    - software-common-properties
+    - software-properties-common
     update_cache: yes
 
 - name: Add source repository into sources list
