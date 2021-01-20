@@ -1,7 +1,7 @@
 resource "null_resource" "mediawiki-setup" {
 		
 	provisioner "local-exec"{
-		command = "ansible-playbook -i mediawiki/inventory mediawiki/main.yml"
+		command = "ansible-playbook -i mediawiki/inventory mediawiki/main.yml --vault-password-file password-file"
 	}
 
 	triggers = {
